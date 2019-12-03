@@ -38,7 +38,7 @@ var ve = new Vue({
             this.params.pageSize=pageSize;
             //查询后台，返回分页数据，更新vue的pageInfo对象
             axios({
-                url:'manager/role',
+                url:'manager/role/index',
                 method:'post',
                 data:this.params
             }).then(response => {

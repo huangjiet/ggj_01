@@ -19,6 +19,6 @@ public interface SysResourceMapper extends Mapper<SysResource> {
             " se.id=srr.resource_id")
     List<SysResource> selectByRid(long rid);*/
 
-    @Select("select se.* from sys_role sr,sys_role_resource srr,sys_resource se where sr.id=#{rid} and sr.id=srr.role_id and se.id=srr.resource_id")
+    @Select("select se.* from sys_role sr,sys_role_resource srr,sys_resource se where  sr.id=#{rid}  and se.type=0 and sr.id=srr.role_id and se.id=srr.resource_id order by se.sort")
     List<SysResource> selectByRid(long rid);
 }

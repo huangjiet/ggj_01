@@ -89,7 +89,7 @@ var ve = new Vue({
 
         initTree:function () {//初始化zTree
             axios({
-                url:"manager/area"
+                url:"manager/area/index"
             }).then(response=>{
                 this.nodes=response.data;
 
