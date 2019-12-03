@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/ueditor/">
+    <meta charset="UTF-8">
+    <title>富文本编辑器使用示例</title>
+    <script src="static/js/jquery/jquery.js"></script>
+    <!--vue-->
+    <script src="static/js/vue/vue.js"></script>
+    <script src="static/js/vue/axios.js"></script>
+    <!--富文本编辑器-->
+    <script src="static/js/ueditor/ueditor.all.js"></script>
+    <script src="static/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script src="static/js/ueditor/ueditor.config.js"></script>
+    <!--vue整合富文本编辑器插件-->
+    <script src="static/js/vue-ueditor-wrap.min.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <!--
+        该组件标签是由VueUeditorWrap定义的
+        v-model:设置组件上绑定的值
+        :config  设置配置对象  如果不设置，默认规则:
+        首先富文本编辑器 ueditor.all.js会自动加载当前的ueditor.config.js，取出js配置
+        接着vue-ueditor-wrap.min.js插件会自动覆盖一些配置文件中的配置信息,包括UEDITOR_HOME_URL，会导致其
+        加载ueditor.all.min.js失败，需要自定一配置
+
+    -->
+    <vue-ueditor-wrap v-model="msg" :config="myconfig"></vue-ueditor-wrap>
+</div>
+
+<script>
+    let app = new Vue({
+        el:'#app',
+        data:{
+            msg: '<h2><img src="http://img.baidu.com/hi/jx2/j_0003.gif"/>Vue + UEditor + v-model双向绑定</h2>',
+            myconfig: {
+
+                UEDITOR_HOME_URL: "static/js/ueditor/"
+
+                , serverUrl: "ueditor/execute"
+            }
+
+        },
+        methods:{
+
+        },
+        components:{//组件配置，用于设置当前vue对象使用的组件
+            VueUeditorWrap//引入vue和ueditor结合的组件
+        },
+        updated:function(){
+            console.log(this.msg);
+        }
+    })
+
+</script>
+</body>
+</html>

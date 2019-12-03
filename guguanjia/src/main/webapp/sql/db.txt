@@ -1,0 +1,51 @@
+# 根据条件查询qualification
+#1.查询所有
+
+SELECT
+	qualification.id,
+	qualification.upload_user_id,
+	qualification.type,
+	qualification.address,
+	qualification.`check`,
+	qualification.description,
+	qualification.check_user_id,
+	qualification.create_date,
+	qualification.update_date,
+	qualification.del_flag,
+	qualification.create_by
+FROM
+	qualification
+WHERE
+	del_flag=0
+
+
+#2.根据条件查询  type=1   check=0    begin=2018-01-10     end=2019-11-14
+#日期类型  比较   数据库会自动转换日期的格式匹配
+SELECT
+	qualification.id,
+	qualification.upload_user_id,
+	qualification.type,
+	qualification.address,
+	qualification.`check`,
+	qualification.description,
+	qualification.check_user_id,
+	qualification.create_date,
+	qualification.update_date,
+	qualification.del_flag,
+	qualification.create_by
+FROM
+	qualification
+WHERE
+	del_flag=0
+AND
+	type=1
+AND
+	`check`=0
+AND
+	DATE(update_date)>'2018-01-10'
+AND
+	DATE(update_date)<'2019-11-14'
+
+
+
+
