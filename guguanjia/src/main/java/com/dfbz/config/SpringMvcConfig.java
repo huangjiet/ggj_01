@@ -13,9 +13,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan(basePackages = "com.dfbz.controller")
 @EnableWebMvc
 public class SpringMvcConfig implements WebMvcConfigurer {
-
-
-
     /**
      * springmvc文件上传：
      * 配置springmvc文件上传解析器  multiparResolerver

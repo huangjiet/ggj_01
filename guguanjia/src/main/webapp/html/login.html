@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 	<head>
-		<!--
-	base标签必须放在head标签中，定义了该标签的当前页，所有相对路径都是基于该base指定的路径
-	href="static/bootstrap/bootstrap.min.css
-	路径处理：     /guguanjia/+static/bootstrap/bootstrap.min.css
-	-->
+
 		<base href="/guguanjia/">
 		<meta charset="utf-8" />
 		<meta name="renderer" content="webkit">
@@ -66,7 +62,7 @@
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" name="username" v-model="params.username" placeholder="用户名" autocomplete="off"
+															<input type="text" class="form-control" name="username"   v-model="params.username" placeholder="用户名" autocomplete="off"
 															datatype="*"  nullmsg="请输入用户名！" data-error="用户名或密码错误"/>
 															<i class="ace-icon fa fa-user"></i>
 														</span>
@@ -82,7 +78,7 @@
 													
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control width-55 pull-left" name="code" v-model="params.code" placeholder="验证码" autocomplete="off"
+															<input type="text" class="form-control width-55 pull-left" name="code"  v-model="params.code" placeholder="验证码" autocomplete="off"
 																   datatype="*"  nullmsg="请输入验证码！" data-error="验证码错误"/>
 															<img src="getCode.jpg"  id="code" @click="changeImg"
 																 class="pull-right" title="点击换一张" style="cursor: pointer;border: 1px solid rgb(181, 181, 181);"/>
@@ -128,30 +124,63 @@
 		<script src="static/jquery/jquery.js"></script>
 		<!-- <![endif]-->
 
-
-
-
+		<script type="text/javascript" src="static/vue/vue.js"></script>
+		<script type="text/javascript" src="static/vue/axios.js"></script>
 
 		<script type="text/javascript" src="static/layer/layer.js"></script>
 		<script type="text/javascript" src="static/validate/Validform_v5.3.2_min.js"></script>
 
 
-	<script>
-		let vm= new Vue({
-			el:'main-container',
-			data:function () {
-				return{
-					params:{
-						username:'',
-						password:'',
-						code:''
+
+
+
+		<script>
+			let vm = new Vue({
+				el:".main-container",
+				data:function () {
+					return{
+						params:{
+							username:'',
+							password:'',
+							code:''
+						}
+					}
+				},
+				methods:{
+					changeImg:function (e) {
+						e.target.src='getCode.jpg?'+new Date();
+					},
+					login:function () {
+						axios({
+							url:'login',
+							data:this.params,
+							method:'post'
+						}).then(response=>{
+							console.log(response.data);
+
+							//判断是否登录成功
+							if (response.data.success) {
+								//将信息返回前端
+								sessionStorage.setItem("userInfo",JSON.stringify(response.data.obj))
+								//跳转页面
+								location.href="html/index.html";
+							}else {
+
+								layer.msg(response.data.msg)
+							}
+						}).catch(function (error) {
+							layer.msg(error);
+						})
+					},
+					created: function () {
+
+					},
+					mounted:function(){
+
 					}
 				}
-			},methods:{
+			})
 
-
-			}
-		})
-	</script>
+		</script>
 	</body>
 </html>
